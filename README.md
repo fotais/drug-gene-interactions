@@ -18,6 +18,11 @@ We have re-implemented SemaTyP in Java, in order to make use of the Java API to 
 
 ## BLGPA
 This is an extension of the DDI-BLKG method [2]. The path collection and SE+PR feature extraction modules have been also implemented in Java exploiting the Java API to the Neo4j database. The random forest classifier has been built in python using the scikit-learn1 library. 
+The code includes the CreateTargetMappings class (main class), and the auxiliary TargetEntry class, representing a target object with the various properties.
+To run the aforementioned Java project, it is obvious that we need to have access to the following sources:
+- TTD (to download the targets' information file in raw format)
+- Entrez Programming Utilities (E-utilities) API (query PUG for PubChem ids and obtain a token to query for a TGT and an API key)
+and also include needed jar libraries in the CLASSPATH.
 
 ## Graph Embeddings
 We have used the PyKEEN library2 and PyTorch3 to produce the TransE, DisMult, HoLE and RESCAL graph embeddings.
@@ -25,15 +30,7 @@ We have used the PyKEEN library2 and PyTorch3 to produce the TransE, DisMult, Ho
 ## RGCN
 For implementing the RGCN classifier, the KG had to be extracted in a tsv file, in order to build the Graph Convolution Network out of it. For this purpose, we have employed the RGCNEncoder of the PyTorch Geometric library4.
 
-## Java Project File Structure & running
-
-The code includes the CreateTargetMappings class (main class), and the auxiliary TargetEntry class, representing a target object with the various properties.
-To run the aforementioned Java project, it is obvious that we need to have access to the following sources:
-- TTD (to download the targets' information file in raw format)
-- Entrez Programming Utilities (E-utilities) API (query PUG for PubChem ids and obtain a token to query for a TGT and an API key)
-and also include needed jar libraries in the CLASSPATH.
-
-## Methods hyper-parameters
+## Experimenting: Methods hyper-parameters
 
 The following table provides an overview of the hyper-parameter values used in every method:
 
@@ -42,7 +39,7 @@ The following table provides an overview of the hyper-parameter values used in e
 | UN-SEEN NEGATIVE EXAMPLES=1          | Maximum path lengths=3                             |  Maximum path lengths=3     | Εmbedding size=100  | Encoder hidden layers=100 |
 | TOP K OUTPUT=500                     | Logistic Regression parameters: penalty=L2, λ2=1.0, solver='lbfgs', max_iter=13000             |  Top-ranking paths=100     |  Max epoxhs=100 (early stop option)  | Decoder=DistMult |
 | THRESHOLD CORRECT PREDICTIONS=5      |    |   Random Forest model parameters: no. of estimators=100, criterion=”gini”, max_depth=None, min_samples_split=2, min_samples_leaf=1, Feature Selection= SelectFromModel (threshold=0.003)    |  Random Forest model parameters: no. of estimators=100, criterion=”gini”, max_depth=None, min_samples_split=2, min_samples_leaf=1  | Optimizer = Adam optimization (learning_rate=0.01) |
-| SNAPSHOTS_AT = 5000                  |
+| SNAPSHOTS_AT = 5000                  |  |  |  | Max epochs=15 / 50  (applied for 1:10 / 1:54 ratios respectively) |
 
    
        
