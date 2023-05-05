@@ -39,13 +39,13 @@ The following table provides an overview of the hyper-parameter values used in e
 
 | AnyBURL                              | SemaTyP                                              | BLGPA | Embeddings |  RGCN |
 | ------------------------------------ | ---------------------------------------------------- | ----- | ---------- | ----- |
-| UN-SEEN NEGATIVE EXAMPLES=1          | Maximum path lengths=3                             |       |            |       |
-| TOP K OUTPUT=500                     | Logistic Regression parameters: penalty=L2, λ2=1.0, solver='lbfgs', max_iter=13000             |       |            |       |
-| THRESHOLD CORRECT PREDICTIONS=5      |    |       |            |       |
+| UN-SEEN NEGATIVE EXAMPLES=1          | Maximum path lengths=3                             |  Maximum path lengths=3     | Εmbedding size=100  | Encoder hidden layers=100 |
+| TOP K OUTPUT=500                     | Logistic Regression parameters: penalty=L2, λ2=1.0, solver='lbfgs', max_iter=13000             |  Top-ranking paths=100     |  Max epoxhs=100 (early stop option)  | Decoder=DistMult |
+| THRESHOLD CORRECT PREDICTIONS=5      |    |   Random Forest model parameters: no. of estimators=100, criterion=”gini”, max_depth=None, min_samples_split=2, min_samples_leaf=1, Feature Selection= SelectFromModel (threshold=0.003)    |  Random Forest model parameters: no. of estimators=100, criterion=”gini”, max_depth=None, min_samples_split=2, min_samples_leaf=1  | Optimizer = Adam optimization (learning_rate=0.01) |
 | SNAPSHOTS_AT = 5000                  |
 
    
-   
+       
 ## References
 [1]:  Nentidis, A., Bougiatiotis, K., Krithara, A., & Paliouras, G. (2020, July). iasis open data graph: Automated semantic integration of disease-specific knowledge. In 2020 IEEE 33rd International Symposium on Computer-Based Medical Systems (CBMS) (pp. 220-225). IEEE.
 
