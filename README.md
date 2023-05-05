@@ -1,6 +1,6 @@
 # Methods for Drug-Gene Interaction Prediction on the Biomedical Literature Knowledge Graph:
 
-These projects provide the implementation of a set of methods for link prediction on a disease-specific Biomedical Literature Knowledge Graph. The preliminary pipeline for the creation of this Knowledge Graph from scientific literature and open databases is provided [here](https://github.com/tasosnent/iASiS_WP4_java_modules) [1].
+These projects provide the implementation of a set of methods for link prediction on a disease-specific Biomedical Literature Knowledge Graph. The preliminary pipeline for the creation of this Knowledge Graph (KG) from scientific literature and open databases is provided [here](https://github.com/tasosnent/iASiS_WP4_java_modules) [1].
 
 ## Licence & Required Citation
 For any use of the current source code or the Full-DTIs-LC-Benchmark.csv file in your work, **a citation to the following paper is expected:**
@@ -11,10 +11,12 @@ The Java code and CSV file are provided **only for academic/research use and are
 
 
 ## AnyBURL
-AnyBURL requires as input a knowledge graph, in the form of tab separated values (tsv) files. Thus, the full Biomedical Literature Knowledge Graph had to be translated into a tsv format file. The groundtruth triples have been divided into ten folds through ten different files. For each repetition, the nine folds have been merged with the main knowledge graph tsv file, and one has been kept as testset. Using the prediction scores calculated by the AnyBURL algorithm, the source Java code of the tool has been edited in order to calculate the Precision, Recall and F1-Score metrics for each fold.
+The folder AnyBURL_customized contains the classes that have been updated in the original Java project. To run this project, one has to run the provided customized jar file, along with the learning/apply configuration files as explained  [here](https://web.informatik.uni-mannheim.de/AnyBURL). 
+AnyBURL requires as input a knowledge graph, in the form of tab separated values (tsv) files. Thus, the full Biomedical Literature Knowledge Graph has to be first extracted from Neo4j into a tsv. The groundtruth triples have to be divided into ten folds via ten different files. For each repetition, the nine folds must be merged with the main knowledge graph tsv file, and one has been kept as testset. When running the Apply step, the updated source Java code calculates the Precision, Recall and F1-Score metrics for each fold.
 
 ## SemaTyP 
-We have re-implemented SemaTyP in Java, in order to make use of the Java API to the Neo4j database holding the KG. The Java SemaTyP implementation collects all DTD paths relating drugs with targets, and ignores article nodes, MENTIONED_IN relations, as well as triples retrieved only from a single article.
+Under SemaTyP_customized, we have re-implemented SemaTyP in Java, in order to make use of the Java API to the Neo4j database holding the KG. The Java SemaTyP implementation collects all DTD paths relating drugs with targets, and ignores article nodes, MENTIONED_IN relations, as well as triples retrieved only from a single article.
+To run SemaTyP, one needs to run the main method of the SemaTyP_Neo4JAlgorithms class, providing as input parameters the path where features will be extracted, the path of the main folder of Neo4j database (/graph.db) and a groundtruth flag ("1" for extracting positive pairs' features and "0" for extracting negative pairs' features).
 
 ## BLGPA
 This is an extension of the DDI-BLKG method [2]. The path collection and SE+PR feature extraction modules have been also implemented in Java exploiting the Java API to the Neo4j database. The random forest classifier has been built in python using the scikit-learn1 library. 
