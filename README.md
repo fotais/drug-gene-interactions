@@ -37,12 +37,12 @@ and also include needed jar libraries in the CLASSPATH.
 
 The following table provides an overview of the hyper-parameter values used in every method:
 
-| AnyBURL                                | SemaTyP                                              | BLGPA | Embeddings |  RGCN |
-| -------------------------------------- | ---------------------------------------------------- | ----- | ---------- | ----- |
-| • UN-SEEN NEGATIVE EXAMPLES=1          | • Maximum path lengths=3                             |       |            |       |
-| • TOP K OUTPUT=500                     | • Logistic Regression model parameters:              |       |            |       |
-| • THRESHOLD CORRECT PREDICTIONS=5      |  penalty=L2, λ2=1.0, solver='lbfgs', max_iter=13000  |       |            |       |
-| • SNAPSHOTS_AT = 5000  | Content Cell  |
+| AnyBURL                              | SemaTyP                                              | BLGPA | Embeddings |  RGCN |
+| ------------------------------------ | ---------------------------------------------------- | ----- | ---------- | ----- |
+| UN-SEEN NEGATIVE EXAMPLES=1          | Maximum path lengths=3                             |       |            |       |
+| TOP K OUTPUT=500                     | Logistic Regression parameters: penalty=L2, λ2=1.0, solver='lbfgs', max_iter=13000             |       |            |       |
+| THRESHOLD CORRECT PREDICTIONS=5      |    |       |            |       |
+| SNAPSHOTS_AT = 5000                  |
 
    
    
