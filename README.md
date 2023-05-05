@@ -12,7 +12,7 @@ The Java code and CSV file are provided **only for academic/research use and are
 
 ## AnyBURL
 The folder AnyBURL_customized contains the classes that have been updated in the original Java project. To run this project, one has to run the provided customized jar file, along with the learning/apply configuration files as explained  [here](https://web.informatik.uni-mannheim.de/AnyBURL). 
-* java -Xmx12G -cp AnyBURL-fot.jar de.unima.ki.anyburl.Learn config-learn.properties
+* java -Xmx12G -cp AnyBURL-fot.jar de.unima.ki.anyburl.LearnReinforced config-learn.properties
 * java -Xmx12G -cp AnyBURL-fot.jar de.unima.ki.anyburl.Apply config-apply.properties
 
 AnyBURL requires as input a knowledge graph, in the form of tab separated values (tsv) files. Thus, the full Biomedical Literature Knowledge Graph has to be first extracted from Neo4j into a tsv. The groundtruth triples have to be divided into ten folds via ten different files. For each repetition, the nine folds must be merged with the main knowledge graph tsv file, and one has been kept as testset. 
