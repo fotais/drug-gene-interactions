@@ -12,24 +12,38 @@ The Java code and CSV file are provided **only for academic/research use and are
 
 ## AnyBURL
 The folder AnyBURL_customized contains the classes that have been updated in the original Java project. To run this project, one has to run the provided customized jar file, along with the learning/apply configuration files as explained  [here](https://web.informatik.uni-mannheim.de/AnyBURL). 
-AnyBURL requires as input a knowledge graph, in the form of tab separated values (tsv) files. Thus, the full Biomedical Literature Knowledge Graph has to be first extracted from Neo4j into a tsv. The groundtruth triples have to be divided into ten folds via ten different files. For each repetition, the nine folds must be merged with the main knowledge graph tsv file, and one has been kept as testset. When running the Apply step, the updated source Java code calculates the Precision, Recall and F1-Score metrics for each fold.
+* java -Xmx12G -cp AnyBURL-fot.jar de.unima.ki.anyburl.Learn config-learn.properties
+* java -Xmx12G -cp AnyBURL-fot.jar de.unima.ki.anyburl.Apply config-apply.properties
+
+AnyBURL requires as input a knowledge graph, in the form of tab separated values (tsv) files. Thus, the full Biomedical Literature Knowledge Graph has to be first extracted from Neo4j into a tsv. The groundtruth triples have to be divided into ten folds via ten different files. For each repetition, the nine folds must be merged with the main knowledge graph tsv file, and one has been kept as testset. 
+
+When running the Apply step, the updated source Java code calculates the Precision, Recall and F1-Score metrics for each fold.
 
 ## SemaTyP 
 Under SemaTyP_customized, we have re-implemented SemaTyP in Java, in order to make use of the Java API to the Neo4j database holding the KG. The Java SemaTyP implementation collects all DTD paths relating drugs with targets, and ignores article nodes, MENTIONED_IN relations, as well as triples retrieved only from a single article.
 
-To run SemaTyP, one needs to run the main method of the SemaTyP_Neo4JAlgorithms class, providing as input parameters 1. the path where features will be extracted, 2. the path of the main folder of Neo4j database (/graph.db) and 3. a groundtruth flag ("1" for extracting positive pairs' features and "0" for extracting negative pairs' features).
+To run SemaTyP, one needs to run the main method of the *SemaTyP_Neo4JAlgorithms class*, providing as input parameters 
+1. the path where features will be extracted
+2. the path of the main folder of Neo4j database (/graph.db)
+3. a groundtruth flag ("1" for extracting positive pairs' features and "0" for extracting negative pairs' features)
+e.g. "java -Xmx12g -jar ./SemaTyP_Neo4JAlgorithms.jar ./sematyp/ /home/user//workspace/neo4j-community-3.5.26/data/databases/graph.db 1"
 
-After constructing the features csv file, the classification task can be ran in python, using the SemaTyP-10foldCV-LR-DTIs_drug-gene.py file under /pythonClassifiers/white-box-methods/ .
+After constructing the features csv file, the classification task can be ran in python, using the *SemaTyP-10foldCV-LR-DTIs_drug-gene.py* file under /pythonClassifiers/white-box-methods/ .
 
 ## BLGPA
 This is an extension of the DDI-BLKG method [2]. The path collection and SE+PR feature extraction modules have been also implemented in Java under the BioGraphPath/ folder, exploiting the Java API to the Neo4j database. 
 
-To run BLGPA, one needs to first run the main method of the Enriched_DTI_BLKG class, providing as input parameters: 1. the path where features will be extracted, 2. the path of the main folder of Neo4j database (/graph.db) and 3. a groundtruth flag ("1" for extracting positive pairs' features and "0" for extracting negative pairs' features).
+To run BLGPA, one needs to first run the main method of the *Enriched_DTI_BLKG class*, providing as input parameters: 
+1. the path where features will be extracted
+2. the path of the main folder of Neo4j database (/graph.db) 
+3. a groundtruth flag ("1" for extracting positive pairs' features and "0" for extracting negative pairs' features)
+e.g. "java -Xmx12g -jar ./Enriched_DTI_BLKG.jar ./blgpa/ /home/user//workspace/neo4j-community-3.5.26/data/databases/graph.db 1"
 
-After constructing the features csv file, the classification task can be ran in python, using the BLGPA_random-forest-undersampling-10foldCV_inner5foldCV-DTIs-approachB.py file under /pythonClassifiers/embeddings . In case of feature selection, the BLGPA_random-forest-undersampling-10foldCV_inner5foldCV-DTIs-approachB_FeatureSelection.py file has to be ran.
+
+After constructing the features csv file, the classification task can be ran in python, using the *BLGPA_random-forest-undersampling-10foldCV_inner5foldCV-DTIs-approachB.py* file under /pythonClassifiers/embeddings . In case of feature selection, the *BLGPA_random-forest-undersampling-10foldCV_inner5foldCV-DTIs-approachB_FeatureSelection.py* file has to be ran.
 
 ## Graph Embeddings
-The various embedding models (TransE, DisMult, HoLE and RESCAL) can be ran sequencially using the neo4jembbedings_loadANDclassifyTensors.py file under /pythonClassifiers/embeddings. This file requires a connection with the Neo4j service, as well as a file providing the groundtruth of the DTIs golden standard in the variable data.
+The various embedding models (TransE, DisMult, HoLE and RESCAL) can be ran sequencially using the *neo4jembbedings_loadANDclassifyTensors.py* file under /pythonClassifiers/embeddings. This file requires a connection with the Neo4j service, as well as a file providing the groundtruth of the DTIs golden standard in the variable data.
 Then the code retrieves for every pair of CUIs, the groundtruth flag ("1" or "0"):
 cuiPairs=data["CUI_PAIR"]
 pairs_ground=data
@@ -45,7 +59,7 @@ relations_articles.tsv
 articles.tsv
 to represent the different type of entities and relations of the KG.
 
-Then the pytorch-geometric_GCN.py can be ran, under /drug-gene-interactions/pythonClassifiers/GCN.
+Then the *pytorch-geometric_GCN.py* can be ran, under /drug-gene-interactions/pythonClassifiers/GCN.
 Within this file, the path of the aforementioned tsv files, as well as of the  positive and negative groundtruth tsv files has to be provided.
 
 The final lines provide a report of the performance of each model, in terms of macro average of Precision, Recall and F1-score.
