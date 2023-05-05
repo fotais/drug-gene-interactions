@@ -26,6 +26,7 @@ To run SemaTyP, one needs to run the main method of the *SemaTyP_Neo4JAlgorithms
 1. the path where features will be extracted
 2. the path of the main folder of Neo4j database (/graph.db)
 3. a groundtruth flag ("1" for extracting positive pairs' features and "0" for extracting negative pairs' features)
+
 e.g. "java -Xmx12g -jar ./SemaTyP_Neo4JAlgorithms.jar ./sematyp/ /home/user//workspace/neo4j-community-3.5.26/data/databases/graph.db 1"
 
 After constructing the features csv file, the classification task can be ran in python, using the *SemaTyP-10foldCV-LR-DTIs_drug-gene.py* file under /pythonClassifiers/white-box-methods/ .
@@ -37,8 +38,8 @@ To run BLGPA, one needs to first run the main method of the *Enriched_DTI_BLKG c
 1. the path where features will be extracted
 2. the path of the main folder of Neo4j database (/graph.db) 
 3. a groundtruth flag ("1" for extracting positive pairs' features and "0" for extracting negative pairs' features)
-e.g. "java -Xmx12g -jar ./Enriched_DTI_BLKG.jar ./blgpa/ /home/user//workspace/neo4j-community-3.5.26/data/databases/graph.db 1"
 
+e.g. "java -Xmx12g -jar ./Enriched_DTI_BLKG.jar ./blgpa/ /home/user//workspace/neo4j-community-3.5.26/data/databases/graph.db 1"
 
 After constructing the features csv file, the classification task can be ran in python, using the *BLGPA_random-forest-undersampling-10foldCV_inner5foldCV-DTIs-approachB.py* file under /pythonClassifiers/embeddings . In case of feature selection, the *BLGPA_random-forest-undersampling-10foldCV_inner5foldCV-DTIs-approachB_FeatureSelection.py* file has to be ran.
 
