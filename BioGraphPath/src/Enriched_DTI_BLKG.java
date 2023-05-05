@@ -343,4 +343,77 @@ public class Enriched_DTI_BLKG {
 			            		System.out.println("DEBUG: interesting paths reached "+pathC +". now saving in file...");
 			            		//System.out.println("DEBUG: loops found="+loops+" and duplicate paths retrieved from API="+dpaths);
 			            		System.out.println("DEBUG: nodePairs_relationOcc hashmap size reached: "+nodePairs_relationsOcc.size());
-			            		PrintWriter writer= new
+			            		PrintWriter writer= new PrintWriter(new FileOutputStream(fname, true));
+			            		for (String path:node_cui_paths)
+					            	writer.append(path+"\n");
+			            		node_cui_paths.clear();
+			            		unique_cui_paths.clear();
+			            		System.out.println("DEBUG: Written in file and emptied unique_cui_paths.size()="+unique_cui_paths.size());
+			            		writer.close();
+			            		System.out.println("---------------------------------------");
+		            	}    
+		            		
+	            	
+		            }
+		            PrintWriter writer= new PrintWriter(new FileOutputStream(fname, true));
+		            for (String path:node_cui_paths)
+		            	writer.append(path+"\n");
+            		System.out.println("DEBUG: FINAL paths examined reached "+pathsE +".");
+            		System.out.println("DEBUG: FINAL interesting paths reached "+pathC +".");
+            		System.out.println("DEBUG: FINAL loops found="+loops+" and duplicate paths retrieved from Neo4j="+dpaths);
+            		        			
+            		
+            		writer.close();
+            		tx.success();
+            		
+		            System.out.println("DEBUG: Now running Feature Extraction...");
+		            FeatureExtraction.extractFeaturesForPathsFile(fname, featureFile, drugs[0], drugs[1], nodePairs_relationsOcc, groundtruth, nodeSemTypesList, terms);
+		            
+		        }
+	            in.close();
+	            filerdr.close();
+        		
+	    	    System.out.println("ALL PATHS RETRIEVED");
+	    	    System.out.println("Skipped "+pathFilesAlreadyexisted+ " drug pairs that their paths were already retrieved in a file...");
+
+        	}catch(Exception e) {
+	            	e.printStackTrace();
+	         }
+	    }
+        graphDb.shutdown();
+    }
+    
+   
+    
+    private static void registerShutdownHook( final GraphDatabaseService graphDb )
+    {
+        // Registers a shutdown hook for the Neo4j instance so that it
+        // shuts down nicely when the VM exits (even if you "Ctrl-C" the
+        // running application).
+        Runtime.getRuntime().addShutdownHook( new Thread()
+        {
+            @Override
+            public void run()
+            {
+                graphDb.shutdown();
+            }
+        } );
+    }  
+
+    public static boolean checkDuplicateUsingAdd(String[] input) {
+    	java.util.HashSet<String> tempSet = new java.util.HashSet<String> ();
+    	for (String str : input) {
+        	//System.out.print(str+" -- ");
+    		if (str!=null) {
+	            if (!tempSet.add(str)) {
+	            	System.out.println(str+" already exists...");
+	            	System.out.println("###########LOOP!!!!");
+	                return true;
+	            }
+    		}
+    		else 
+    			return false;
+        }
+        return false;
+    }
+}
